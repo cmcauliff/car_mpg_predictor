@@ -4,7 +4,7 @@ services:
     env: docker
     repo: https://github.com/yourusername/your-repo-name
     dockerfilePath: backend/Dockerfile
-    buildContext: .
+    rootDir: .
     plan: free
     envVars:
       - key: MODEL_DIR
@@ -16,13 +16,11 @@ services:
     name: car-mpg-frontend
     env: docker
     repo: https://github.com/yourusername/your-repo-name
-    dockerfilePath: ./frontend/Dockerfile
-    buildContext: ./frontend
+    dockerfilePath: frontend/Dockerfile
+    rootDir: ./frontend
     plan: free
     envVars:
       - key: BACKEND_URL
         value: https://car-mpg-backend.onrender.com
     autoDeploy: true
     healthCheckPath: /
-    dependsOn:
-      - name: car-mpg-backend
