@@ -15,7 +15,9 @@ services:
     restart: always
 
   car-mpg-frontend:
-    build: ./frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
     ports:
       - "8501:8501"
     environment:
