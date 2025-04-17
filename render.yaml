@@ -1,0 +1,39 @@
+# render.yaml
+services:
+  # Backend API service
+  - type: web
+    name: car-mpg-api
+    runtime: docker
+    repo: https://github.com/yourusername/car-mpg-predictor.git
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: backend
+    dockerfilePath: backend/Dockerfile
+    buildContext: .
+    envVars:
+      - key: MODEL_DIR
+        value: /app/model
+    disk:
+      name: model-data
+      mountPath: /app/model
+      sizeGB: 1
+    healthCheckPath: /health
+
+  # Frontend Streamlit app
+  - type: web
+    name: car-mpg-frontend
+    runtime: docker
+    repo: https://github.com/yourusername/car-mpg-predictor.git
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: frontend
+    dockerfilePath: frontend/Dockerfile
+    buildContext: ./frontend
+    envVars:
+      - key: BACKEND_URL
+        fromService:
+          type: web
+          name: car-mpg-api
+          envVarKey: RENDER_EXTERNAL_URL

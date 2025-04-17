@@ -1,0 +1,25 @@
+# docker-compose.yml
+version: '3'
+
+services:
+  car-mpg-backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./model:/app/model
+    environment:
+      - MODEL_DIR=/app/model
+    restart: always
+
+  car-mpg-frontend:
+    build: ./frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - BACKEND_URL=http://car-mpg-backend:8000
+    depends_on:
+      - car-mpg-backend
+    restart: always
