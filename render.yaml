@@ -2,7 +2,6 @@ services:
   - type: web
     name: car-mpg-backend
     env: docker
-    repo: https://github.com/yourusername/your-repo-name
     dockerfilePath: backend/Dockerfile
     rootDir: .
     plan: free
@@ -15,7 +14,6 @@ services:
   - type: web
     name: car-mpg-frontend
     env: docker
-    repo: https://github.com/yourusername/your-repo-name
     dockerfilePath: frontend/Dockerfile
     rootDir: ./frontend
     plan: free
